@@ -1,5 +1,10 @@
 export default function Home() {
   return (
-    <h1>Hello World!</h1>
+    <note>
+      <to>Tove</to>
+      <from>Jani</from>
+      <heading>Reminder</heading>
+      <body>Don't forget me this weekend!</body>
+    </note>
   );
 }
