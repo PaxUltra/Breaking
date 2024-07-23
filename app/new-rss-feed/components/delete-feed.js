@@ -1,7 +1,7 @@
 "use client";
 
 import { useFormState } from "react-dom";
-import { deleteFeed } from "@/app/rss-feeds/actions";
+import { deleteFeed } from "@/app/new-rss-feed/actions";
 
 export function DeleteFeed(props) {
     const [state, formAction, isPending] = useFormState(deleteFeed, null);

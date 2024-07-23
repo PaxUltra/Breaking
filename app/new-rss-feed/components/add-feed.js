@@ -1,7 +1,7 @@
 "use client";
 
 import { useFormState } from "react-dom";
-import { addFeed } from "@/app/rss-feeds/actions";
+import { addFeed } from "@/app/new-rss-feed/actions";
 
 export function AddFeed() {
     const [state, formAction, isPending] = useFormState(addFeed, null);

@@ -1,5 +1,5 @@
 import { pool } from "@/app/data/db-manager";
-import { AddFeed } from "@/app/rss-feeds/components/add-feed";
+import { AddFeed } from "@/app/new-rss-feed/components/add-feed";
 import { DeleteFeed } from "./components/delete-feed";
 
 export default async function RssFeeds() {

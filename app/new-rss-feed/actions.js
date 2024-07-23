@@ -15,6 +15,7 @@ export async function addFeed(prevState, formData) {
         url, \
         description, \
         last_build, \
+        items, \
         lang, \
         copyright, \
         editor, \
@@ -29,7 +30,7 @@ export async function addFeed(prevState, formData) {
         text_input, \
         skip_hours, \
         skip_days) \
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19)";
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20)";
 
     const values = [
         feed?.title,
@@ -37,6 +38,7 @@ export async function addFeed(prevState, formData) {
         feed?.link,
         feed?.description,
         feed?.lastBuildDate ? feed.lastBuildDate : feed.items[0].pubDate,
+        feed?.items,
         feed?.language,
         feed?.copyright,
         feed?.editor,
@@ -56,6 +58,7 @@ export async function addFeed(prevState, formData) {
     const client = await pool.connect();
     await client.query(query, values);
     await client.end();
+    revalidatePath("/new-rss-feed");
     return;
 }
 
@@ -64,23 +67,6 @@ export async function deleteFeed(prevState, formData) {
     const client = await pool.connect();
     await client.query("DELETE FROM rss_feed WHERE feed_id = $1", [feedId]);
     await client.end();
-    revalidatePath("/rss-feeds");
+    revalidatePath("/new-rss-feed");
     return;
 }
-
-// export const dbManager = {
-//     addFeed: async (prevState, formData) => {
-//         const url = formData.get("url");
-//         const parser = new Parser();
-//         const feed = parser.parseURL(url);
-
-//     },
-
-//     getRssFeeds: async () => {
-//         await client.connect();
-//         const result = await client.query('SELECT * FROM rss_feed');
-//         await client.end();
-
-//         return result.rows;
-//     }
-// }
