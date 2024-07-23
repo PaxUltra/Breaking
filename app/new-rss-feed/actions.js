@@ -13,6 +13,7 @@ export async function addFeed(prevState, formData) {
         title, \
         custom_name, \
         url, \
+        favicon, \
         description, \
         last_build, \
         items, \
@@ -30,12 +31,13 @@ export async function addFeed(prevState, formData) {
         text_input, \
         skip_hours, \
         skip_days) \
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20)";
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21)";
 
     const values = [
         feed?.title,
         feed?.custom_title,
         feed?.link,
+        feed?.link.match("^(?:https?:\/\/)?(?:www\.)?([^\/:]+)")[0] + "/favicon.ico",
         feed?.description,
         feed?.lastBuildDate ? feed.lastBuildDate : feed.items[0].pubDate,
         feed?.items,
