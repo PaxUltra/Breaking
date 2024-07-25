@@ -14,15 +14,6 @@ export default async function FeedContainer() {
             <Sidebar />
             <FeedItems />
             <ReadingPane />
-            {/* <AddFeed />
-            <ul>
-                {feeds.map((feed) => (
-                    <li key={feed.feed_id}>
-                        {feed.title}
-                        <DeleteFeed feed_id={feed.feed_id} />
-                    </li>
-                ))}
-            </ul> */}
         </main>
     );
 }
