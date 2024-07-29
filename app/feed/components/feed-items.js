@@ -17,6 +17,17 @@ function aggregateFeed(feeds) {
     return aggFeed;
 }
 
+function sortFeed(agFeed) {
+    let sortedByDate = agFeed.toSorted((a, b) => {
+        return new Date(b.pubDate) - new Date(a.pubDate);
+    });
+
+    let sortedFeed = {};
+
+    return sortedByDate;
+
+}
+
 export default async function FeedItems() {
     // Get feeds from database
     const client = await pool.connect();
@@ -25,10 +36,11 @@ export default async function FeedItems() {
     let feeds = result.rows;
 
     let agFeeds = aggregateFeed(feeds);
+    let sortedFeed = sortFeed(agFeeds);
 
     return (
         <div class="col-span-4 bg-teal-400">
-            {agFeeds.map((item) => (
+            {sortedFeed.map((item) => (
                 <div>
                     <ItemCard feed={item.feedTitle} favicon={item.feedFavicon} item={item} />
                 </div>
