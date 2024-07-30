@@ -2,6 +2,7 @@ import dayjs from "dayjs";
 import isYesterday from 'dayjs/plugin/isYesterday';
 import { pool } from "@/app/data/db-manager";
 import ItemCard from "./item-card";
+import DateRangeBanner from "./date-range-banner";
 
 dayjs.extend(isYesterday);
 
@@ -92,7 +93,7 @@ export default async function FeedItems() {
             {Object.keys(sortedFeed).map((key) => {
                 return (
                     <div>
-                        <p>{key}</p>
+                        <DateRangeBanner rangeText={key} />
                         {sortedFeed[key].map((item) => (
                             <div>
                                 <ItemCard feed={item.feedTitle} favicon={item.feedFavicon} item={item} />
