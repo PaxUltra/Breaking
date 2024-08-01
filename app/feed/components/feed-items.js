@@ -1,10 +1,15 @@
+// "use client";
+
 import dayjs from "dayjs";
 import isYesterday from 'dayjs/plugin/isYesterday';
 import { pool } from "@/app/data/db-manager";
 import ItemCard from "./item-card";
 import DateRangeBanner from "./date-range-banner";
+import { updateFeeds } from "../actions";
 
 dayjs.extend(isYesterday);
+
+// await updateFeeds();
 
 function aggregateFeed(feeds) {
     let aggFeed = [];
