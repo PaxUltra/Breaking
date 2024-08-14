@@ -90,9 +90,6 @@ export default async function FeedItems() {
     let agFeeds = aggregateFeed(feeds);
     let sortedFeed = sortFeed(agFeeds);
 
-    Object.keys(sortedFeed).forEach((key) => {
-        console.log(key)
-    })
     return (
         <div class="col-span-4 bg-teal-400">
             {Object.keys(sortedFeed).map((key) => {

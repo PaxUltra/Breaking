@@ -68,7 +68,7 @@ export async function deleteFeed(prevState, formData) {
     const feedId = formData.get("feed_id");
     const client = await pool.connect();
     await client.query("DELETE FROM rss_feed WHERE feed_id = $1", [feedId]);
-    await client.end();
+    client.release();
     revalidatePath("/new-rss-feed");
     return;
 }
