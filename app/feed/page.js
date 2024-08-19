@@ -1,17 +1,22 @@
-import { pool } from "@/app/data/db-manager";
+"use client";
+
 import Sidebar from "./components/sidebar";
 import FeedItems from "./components/feed-items";
 import ReadingPane from "./components/reading-pane";
-import { getFeeds } from "./actions";
+import { useState } from "react";
 
-export default async function FeedContainer() {
-    const feeds = await getFeeds();
+export default function FeedContainer() {
+    const [selectedItem, setSelectedItem] = useState(null);
+
+    const handleItemClick = (item) => {
+        setSelectedItem(item);
+    };
 
     return (
         <main className="h-screen grid grid-cols-12">
             <Sidebar />
-            <FeedItems feeds={feeds} />
-            <ReadingPane />
+            <FeedItems onItemSelect={handleItemClick} />
+            <ReadingPane selectedItem={selectedItem} />
         </main>
     );
 }

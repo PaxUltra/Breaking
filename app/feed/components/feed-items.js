@@ -9,8 +9,6 @@ import { useEffect, useState } from "react";
 
 dayjs.extend(isYesterday);
 
-// await updateFeeds();
-
 function aggregateFeed(feeds) {
     let aggFeed = [];
 
@@ -83,17 +81,17 @@ function sortFeed(agFeed) {
 export default function FeedItems(props) {
 
     // Get feeds from database
-    const [feeds, setFeeds] = useState(props.feeds);
-    let agFeeds = aggregateFeed(feeds);
-    let sortedFeed = sortFeed(agFeeds);
+    const [sortedFeed, setSortedFeed] = useState([]);
 
     useEffect(() => {
         async function getFeedUpdates() {
             try {
                 const updatedFeeds = await updateFeeds();
+                const updatedAg = aggregateFeed(updatedFeeds);
+                const updatedSorted = sortFeed(updatedAg);
 
-                if (JSON.stringify(updateFeeds) !== JSON.stringify(feeds)) {
-                    setFeeds(updatedFeeds);
+                if (JSON.stringify(updatedSorted) !== JSON.stringify(sortedFeed)) {
+                    setSortedFeed(updatedSorted);
                 }
 
             } catch (error) {
@@ -105,7 +103,7 @@ export default function FeedItems(props) {
 
         const intervalId = setInterval(() => {
             getFeedUpdates();
-        }, 10000);
+        }, 60000);
 
         return () => clearInterval(intervalId);
     }, []);
@@ -114,13 +112,11 @@ export default function FeedItems(props) {
         <div className="col-span-4 bg-teal-400">
             {Object.keys(sortedFeed).map((key) => {
                 return (
-                    <div>
+                    <div key={key}>
                         <DateRangeBanner rangeText={key} />
-                        {sortedFeed[key].map((item) => (
-                            <div>
-                                <ItemCard feed={item.feedTitle} favicon={item.feedFavicon} item={item} />
-                            </div>
-                        ))}
+                        {sortedFeed[key].map((item) => {
+                            return <ItemCard feed={item.feedTitle} favicon={item.feedFavicon} item={item} onClick={props.onItemSelect} />
+                        })}
                     </div>
                 );
             })}
