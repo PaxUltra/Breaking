@@ -1,11 +1,11 @@
-// "use client";
+"use client";
 
 import dayjs from "dayjs";
 import isYesterday from 'dayjs/plugin/isYesterday';
-import { pool } from "@/app/data/db-manager";
 import ItemCard from "./item-card";
 import DateRangeBanner from "./date-range-banner";
-import { updateFeeds } from "../actions";
+import { getFeeds, updateFeeds } from "../actions";
+import { useEffect, useState } from "react";
 
 dayjs.extend(isYesterday);
 
@@ -80,18 +80,38 @@ function sortFeed(agFeed) {
 
 }
 
-export default async function FeedItems() {
-    // Get feeds from database
-    const client = await pool.connect();
-    let result = await client.query("SELECT * FROM rss_feed");
-    await client.end();
-    let feeds = result.rows;
+export default function FeedItems(props) {
 
+    // Get feeds from database
+    const [feeds, setFeeds] = useState(props.feeds);
     let agFeeds = aggregateFeed(feeds);
     let sortedFeed = sortFeed(agFeeds);
 
+    useEffect(() => {
+        async function getFeedUpdates() {
+            try {
+                const updatedFeeds = await updateFeeds();
+
+                if (JSON.stringify(updateFeeds) !== JSON.stringify(feeds)) {
+                    setFeeds(updatedFeeds);
+                }
+
+            } catch (error) {
+                console.error("Error fetching feeds...");
+            }
+        }
+
+        getFeedUpdates();
+
+        const intervalId = setInterval(() => {
+            getFeedUpdates();
+        }, 10000);
+
+        return () => clearInterval(intervalId);
+    }, []);
+
     return (
-        <div class="col-span-4 bg-teal-400">
+        <div className="col-span-4 bg-teal-400">
             {Object.keys(sortedFeed).map((key) => {
                 return (
                     <div>
