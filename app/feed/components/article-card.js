@@ -37,6 +37,7 @@ export default function ArticleCard(props) {
         const content = item.content;
         const enclosure = item.enclosure;
         const feedTitle = item.feedTitle;
+        const feedLink = item.feedLink;
         const date = new Date(item?.pubDate);
         const formattedDate = date ? format(date, "EEE, dd MMM yyyy HH:mm:ss") : ""; // This will produce a date in the following format: Sat, 01 Jan 2024 00:03:05
         const elapsedTime = getElapsedTime(date);
@@ -55,7 +56,7 @@ export default function ArticleCard(props) {
             <div className="w-[97%] px-6 py-2 bg-white">
                 <a href={link} className="text-lg text-sky-700 hover:underline">{title}</a>
                 <div className="flex justify-between mb-3">
-                    <p className="text-xs">From <a href="#" className="hover:underline">{feedTitle}</a></p>
+                    <p className="text-xs">From <a href={feedLink} className="hover:underline cursor-pointer">{feedTitle}</a></p>
                     <p className="text-xs">{formattedDate} {elapsedTime}</p>
                 </div>
                 <div className="px-3">

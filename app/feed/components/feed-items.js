@@ -18,6 +18,7 @@ function aggregateFeed(feeds) {
             aggFeed.push({
                 feedTitle: feed.title,
                 feedFavicon: feed.favicon,
+                feedLink: feed.url,
                 itemIndex: index,
                 ...item
             });
