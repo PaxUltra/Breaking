@@ -17,7 +17,7 @@ export default function ItemCard(props) {
             <h2 className="col-span-2 text-sm">{item.title}</h2>
             <div className="col-span-2 w-full flex justify-between">
                 <div className="flex items-center gap-1">
-                    <img className="h-6 bg-slate-800" src={props.favicon}></img>
+                    <img className="h-6" src={props.favicon}></img>
                     <p className="text-xs">{feed_title}</p>
                 </div>
                 <p className="text-xs">{formattedDate}</p>
