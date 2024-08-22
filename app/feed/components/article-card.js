@@ -67,7 +67,7 @@ export default function ArticleCard(props) {
                     <p className="text-xs">{formattedDate} {elapsedTime}</p>
                 </div>
                 <div className="px-3">
-                    <div dangerouslySetInnerHTML={{ __html: sanitizedContent }} className="text-sm mb-3"></div>
+                    <div dangerouslySetInnerHTML={{ __html: sanitizedContent }} className="article-content text-sm mb-3"></div>
                     {enclosure && (
                         <p className="text-sm"><span onClick={handleClick} className="text-sky-500 hover:cursor-pointer">View</span> Enclosure: <a href={enclosure.url}>{enclosure.url.match(/[^/]+$/)[0]}</a></p>
                     )}
