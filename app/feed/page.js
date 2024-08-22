@@ -15,7 +15,7 @@ export default function FeedContainer() {
     return (
         <main className="h-screen grid grid-cols-12">
             <Sidebar />
-            <FeedItems onItemSelect={handleItemClick} />
+            <FeedItems selectedItem={selectedItem} onItemSelect={handleItemClick} />
             <ReadingPane selectedItem={selectedItem} />
         </main>
     );

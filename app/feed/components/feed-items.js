@@ -11,14 +11,17 @@ dayjs.extend(isYesterday);
 
 function aggregateFeed(feeds) {
     let aggFeed = [];
+    let index = 0;
 
     feeds.map((feed) => {
         feed.items.map((item) => {
             aggFeed.push({
                 feedTitle: feed.title,
                 feedFavicon: feed.favicon,
+                itemIndex: index,
                 ...item
             });
+            index++;
         });
     });
 
@@ -115,7 +118,7 @@ export default function FeedItems(props) {
                     <div key={key}>
                         <DateRangeBanner rangeText={key} />
                         {sortedFeed[key].map((item) => {
-                            return <ItemCard feed={item.feedTitle} favicon={item.feedFavicon} item={item} onClick={props.onItemSelect} />
+                            return <ItemCard feed={item.feedTitle} favicon={item.feedFavicon} item={item} onClick={props.onItemSelect} selectedItem={props.selectedItem} />
                         })}
                     </div>
                 );
