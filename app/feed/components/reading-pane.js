@@ -1,7 +1,9 @@
+import ArticleCard from "./article-card";
+
 export default function ReadingPane(props) {
     return (
-        <div className="col-span-6 bg-pink-600">
-            <h1>{props.selectedItem?.title}</h1>
+        <div className="flex justify-center col-span-6 bg-slate-200">
+            <ArticleCard selectedItem={props?.selectedItem} />
         </div>
     );
 }

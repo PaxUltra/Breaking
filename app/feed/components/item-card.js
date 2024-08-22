@@ -5,8 +5,6 @@ export default function ItemCard(props) {
     const item = props.item;
     const date = new Date(item.pubDate);
 
-    console.log(props.selectedItem)
-
     // This will produce a date in the following format: Sat, 01 Jan 2024 00:03:05
     const formattedDate = format(date, "EEE, dd MMM yyyy HH:mm:ss");
 
