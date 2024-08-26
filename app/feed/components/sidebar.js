@@ -1,11 +1,16 @@
-export default function Sidebar() {
+import FeedName from "./feed-name";
+
+export default function Sidebar(props) {
+    const feeds = props.subscribedFeeds;
+
     return (
-        <div className="col-span-2 bg-slate-500">
-            <ul>
-                <li>Item 1</li>
-                <li>Item 2</li>
-                <li>Item 3</li>
+        <div className="pl-7 col-span-2 bg-slate-200">
+            <ul className="text-xs">
+                <li className="hover:cursor-pointer">All Items</li>
+                {feeds.map((feed) => {
+                    return <FeedName feed={feed} selectedFeed={props.selectedFeed} onClick={props.onFeedSelect} />
+                })}
             </ul>
-        </div>
+        </div >
     );
 }

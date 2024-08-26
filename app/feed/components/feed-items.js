@@ -113,7 +113,7 @@ export default function FeedItems(props) {
     }, []);
 
     return (
-        <div className="col-span-4 bg-teal-400">
+        <div className="col-span-4">
             {Object.keys(sortedFeed).map((key) => {
                 return (
                     <div key={key}>
