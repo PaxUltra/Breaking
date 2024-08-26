@@ -82,6 +82,15 @@ function sortFeed(agFeed) {
 
 }
 
+function filterFeed(feedList, selectedFeedId) {
+
+    if (selectedFeedId) {
+        return feedList.filter((feed) => feed.feed_id === selectedFeedId);
+    } else {
+        return feedList;
+    }
+}
+
 export default function FeedItems(props) {
 
     // Get feeds from database
@@ -89,9 +98,11 @@ export default function FeedItems(props) {
 
     useEffect(() => {
         async function getFeedUpdates() {
+            console.log(props);
             try {
                 const updatedFeeds = await updateFeeds();
-                const updatedAg = aggregateFeed(updatedFeeds);
+                const filteredFeeds = filterFeed(updatedFeeds, props.selectedFeed);
+                const updatedAg = aggregateFeed(filteredFeeds);
                 const updatedSorted = sortFeed(updatedAg);
 
                 if (JSON.stringify(updatedSorted) !== JSON.stringify(sortedFeed)) {
@@ -110,7 +121,7 @@ export default function FeedItems(props) {
         }, 60000);
 
         return () => clearInterval(intervalId);
-    }, []);
+    }, [props.selectedFeed]);
 
     return (
         <div className="col-span-4">

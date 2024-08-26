@@ -31,7 +31,7 @@ export default function FeedContainer() {
     return (
         <main className="h-screen grid grid-cols-12">
             <Sidebar subscribedFeeds={subscribedFeeds} selectedFeed={selectedFeed} onFeedSelect={handleFeedCLick} />
-            <FeedItems selectedItem={selectedItem} onItemSelect={handleItemClick} />
+            <FeedItems selectedFeed={selectedFeed} selectedItem={selectedItem} onItemSelect={handleItemClick} />
             <ReadingPane selectedItem={selectedItem} />
         </main>
     );
