@@ -4,7 +4,7 @@ import Sidebar from "./components/sidebar";
 import FeedItems from "./components/feed-items";
 import ReadingPane from "./components/reading-pane";
 import { useEffect, useState } from "react";
-import { getFeeds } from "./actions";
+import { getFeeds, updateFeeds } from "./actions";
 
 export default function FeedContainer() {
     const [selectedItem, setSelectedItem] = useState(null);
@@ -21,7 +21,7 @@ export default function FeedContainer() {
 
     useEffect(() => {
         async function fetchFeeds() {
-            const feeds = await getFeeds();
+            const feeds = await updateFeeds();
             setSubscribedFeeds(feeds);
         }
 
