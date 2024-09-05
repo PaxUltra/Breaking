@@ -1,18 +1,22 @@
 import FeedName from "./feed-name";
+import { useFeedContext } from "../feed-context";
 
 export default function Sidebar(props) {
-    const feeds = props.subscribedFeeds;
+    const { selectedFeedState, subscribedFeedsState, handleFeedClick } = useFeedContext();
+    const [subscribedFeeds, setSubscribedFeeds] = subscribedFeedsState;
+    const [selectedFeed, setSelectedFeed] = selectedFeedState;
+    const feeds = subscribedFeeds;
 
     const handleClick = () => {
-        props.onFeedSelect(null);
+        handleFeedClick(null);
     };
 
     return (
         <div className="pl-7 col-span-2 bg-slate-200">
             <ul className="text-xs">
-                <li className={`hover:cursor-pointer ${props.selectedFeed === null ? 'bg-slate-400' : ''}`} onClick={handleClick}>All Items</li>
-                {feeds.map((feed) => {
-                    return <FeedName feed={feed} selectedFeed={props.selectedFeed} onClick={props.onFeedSelect} />
+                <li className={`hover:cursor-pointer ${selectedFeed === null ? 'bg-slate-400' : ''}`} onClick={handleClick}>All Items</li>
+                {subscribedFeeds.map((feed) => {
+                    return <FeedName feed={feed} />
                 })}
             </ul>
         </div >

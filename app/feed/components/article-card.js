@@ -3,6 +3,7 @@
 import sanitizeHtml from "sanitize-html";
 import { format } from "date-fns";
 import { useState } from "react";
+import { useFeedContext } from "../feed-context";
 
 function getElapsedTime(pubDate) {
     let output = "";
@@ -32,7 +33,10 @@ function getElapsedTime(pubDate) {
 }
 
 export default function ArticleCard(props) {
-    const item = props?.selectedItem;
+    const { selectedItemState } = useFeedContext();
+    const [selectedItem, setSelectedItem] = selectedItemState;
+
+    const item = selectedItem;
     const [viewImageUrl, setViewImageUrl] = useState("");
 
     if (item) {

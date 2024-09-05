@@ -1,7 +1,6 @@
 "use server";
 
 import Parser from "rss-parser";
-import { revalidatePath } from "next/cache";
 import { pool } from '@/app/data/db-manager';
 
 export async function getFeeds() {

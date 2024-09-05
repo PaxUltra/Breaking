@@ -1,6 +1,10 @@
 import { format } from "date-fns";
+import { useFeedContext } from "../feed-context";
 
 export default function ItemCard(props) {
+    const { selectedItemState, handleItemClick } = useFeedContext();
+    const [selectedItem, setSelectedItem] = selectedItemState;
+
     const feed_title = props.feed;
     const item = props.item;
     const date = new Date(item.pubDate);
@@ -9,11 +13,11 @@ export default function ItemCard(props) {
     const formattedDate = format(date, "EEE, dd MMM yyyy HH:mm:ss");
 
     const handleClick = () => {
-        props.onClick(props.item);
+        handleItemClick(props.item);
     };
 
     return (
-        <div className={`grid grid-cols-2 gap-y-1 px-3 py-2.5 ${props.selectedItem?.itemIndex === item.itemIndex ? "bg-slate-300" : "bg-white hover:bg-slate-200"}`} onClick={handleClick}>
+        <div className={`grid grid-cols-2 gap-y-1 px-3 py-2.5 ${selectedItem?.itemIndex === item.itemIndex ? "bg-slate-300" : "bg-white hover:bg-slate-200"}`} onClick={handleClick}>
             <h2 className="col-span-2 text-sm">{item.title}</h2>
             <div className="col-span-2 w-full flex justify-between">
                 <div className="flex items-center gap-1">

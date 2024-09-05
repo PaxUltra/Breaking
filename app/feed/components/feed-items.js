@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import isYesterday from 'dayjs/plugin/isYesterday';
 import ItemCard from "./item-card";
 import DateRangeBanner from "./date-range-banner";
+import { useFeedContext } from "../feed-context";
 import { getFeeds, updateFeeds } from "../actions";
 import { useEffect, useState } from "react";
 
@@ -92,16 +93,17 @@ function filterFeed(feedList, selectedFeedId) {
 }
 
 export default function FeedItems(props) {
+    const { selectedFeedState } = useFeedContext();
+    const [selectedFeed, setSelectedFeed] = selectedFeedState;
 
     // Get feeds from database
     const [sortedFeed, setSortedFeed] = useState([]);
 
     useEffect(() => {
         async function getFeedUpdates() {
-            console.log(props);
             try {
                 const updatedFeeds = await updateFeeds();
-                const filteredFeeds = filterFeed(updatedFeeds, props.selectedFeed);
+                const filteredFeeds = filterFeed(updatedFeeds, selectedFeed);
                 const updatedAg = aggregateFeed(filteredFeeds);
                 const updatedSorted = sortFeed(updatedAg);
 
@@ -121,7 +123,7 @@ export default function FeedItems(props) {
         }, 60000);
 
         return () => clearInterval(intervalId);
-    }, [props.selectedFeed]);
+    }, [selectedFeed]);
 
     return (
         <div className="col-span-4">
@@ -130,7 +132,7 @@ export default function FeedItems(props) {
                     <div key={key}>
                         <DateRangeBanner rangeText={key} />
                         {sortedFeed[key].map((item) => {
-                            return <ItemCard feed={item.feedTitle} favicon={item.feedFavicon} item={item} onClick={props.onItemSelect} selectedItem={props.selectedItem} />
+                            return <ItemCard feed={item.feedTitle} favicon={item.feedFavicon} item={item} />
                         })}
                     </div>
                 );
