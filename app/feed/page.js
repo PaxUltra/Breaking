@@ -31,11 +31,9 @@ function FeedContainer() {
 
     return (
         <main className="h-screen grid grid-cols-12">
-            <FeedContextProvider>
-                <Sidebar />
-                <FeedItems />
-                <ReadingPane />
-            </FeedContextProvider>
+            <Sidebar />
+            <FeedItems />
+            <ReadingPane />
         </main>
     );
 }
