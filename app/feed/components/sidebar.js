@@ -1,11 +1,10 @@
 import FeedName from "./feed-name";
 import { useFeedContext } from "../feed-context";
 
-export default function Sidebar(props) {
+export default function Sidebar() {
     const { selectedFeedState, subscribedFeedsState, handleFeedClick } = useFeedContext();
     const [subscribedFeeds, setSubscribedFeeds] = subscribedFeedsState;
     const [selectedFeed, setSelectedFeed] = selectedFeedState;
-    const feeds = subscribedFeeds;
 
     const handleClick = () => {
         handleFeedClick(null);

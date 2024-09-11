@@ -32,7 +32,7 @@ function getElapsedTime(pubDate) {
     return output;
 }
 
-export default function ArticleCard(props) {
+export default function ArticleCard() {
     const { selectedItemState } = useFeedContext();
     const [selectedItem, setSelectedItem] = selectedItemState;
 
